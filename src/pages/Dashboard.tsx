@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import TaskForm from "../components/TaskForm";
 
 interface Task {
   id: number;
@@ -18,11 +19,17 @@ export default function Dashboard() {
     }
   }, []);
 
+  const addTask = (task: any) => {
+    setTasks([...tasks, { id: Date.now(), completed: false, ...task }]);
+  };
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Task Dashboard</h1>
-      {/* IMPORTANT - actual components (TaskForm, TaskList, FilterBar) will go here */}
-      <p>🚀 Start by building the TaskForm next.</p>
+
+      <TaskForm onAddTask={addTask} />
+
+      <pre>{JSON.stringify(tasks, null, 2)}</pre>
     </div>
   );
 }
